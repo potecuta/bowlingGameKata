@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+protocol RollType {
+    
+    var pins: Int { get set }
+}
+
+struct Roll: RollType {
+    
+    var pins: Int
+    
+}

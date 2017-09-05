@@ -11,26 +11,63 @@ import XCTest
 
 class BowlingGameKataTests: XCTestCase {
     
+    var game: Game!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        game = Game()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        game = nil
+        
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testGutterExample() {
+        
+        roll(times: 20, noOfPins: 0)
+        XCTAssertEqual(0, game.score)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testAllOnes() {
+        
+        roll(times: 20, noOfPins: 1)
+        XCTAssertEqual(20, game.score)
+    }
+    
+    func testOneSpare() {
+        rollSpare()
+        game.roll(3)
+        roll(times: 17, noOfPins: 0)
+        XCTAssertEqual(16, game.score)
+    }
+    
+    func testOneStrike() {
+        rollStrike()
+        game.roll(3)
+        game.roll(4)
+        roll(times: 16, noOfPins: 0)
+        XCTAssertEqual(24, game.score)
+    }
+    
+    func testPerfectGame() {
+        roll(times: 12, noOfPins: 10)
+        XCTAssertEqual(300, game.score)
+    }
+    
+    private func roll(times: Int, noOfPins pins: Int) {
+        for _ in 0..<times {
+            game.roll(pins)
         }
     }
     
+    private func rollStrike() {
+        game.roll(10)
+    }
+    
+    private func rollSpare() {
+        game.roll(5)
+        game.roll(5)
+    }
 }

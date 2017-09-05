@@ -7,3 +7,30 @@
 //
 
 import Foundation
+
+protocol FrameType {
+    
+    func score() -> Int
+}
+
+protocol TenthFrameType: FrameType {
+    
+    
+}
+
+
+
+struct Frame: FrameType {
+
+    
+    public func score() -> Int {
+        return 1
+    }
+}
+
+struct TenthFrame: TenthFrameType {
+    
+    public func score() -> Int {
+        return 1
+    }
+}
